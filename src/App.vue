@@ -21,6 +21,16 @@ export default {
         .then(response => {
           this.countries = response.data
         })
+    },
+    getSummeryData () {
+      return axios.get('https://api.covid19api.com/summary')
+        .then(response => {
+          const data = response.data
+          this.data = data.Countries
+          this.confirmed = data.Global.TotalConfirmed
+          this.deaths = data.Global.TotalDeaths
+          this.recovered = data.Global.TotalRecovered
+        })
     }
   }
 }
