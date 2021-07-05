@@ -1,31 +1,38 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
-    <router-view/>
-  </div>
-</template>
+<script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+import axios from 'axios'
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  name: 'App',
+  data () {
+    return {
+      countries: [],
+      selectedCountry: '',
+      data: 0,
+      countryData: {},
+      confirmed: null,
+      deaths: null,
+      recovered: null
+    }
+  },
+  methods: {
+    getCountries () {
+      return axios.get('https://api.covid19api.com/countries')
+        .then(response => {
+          this.countries = response.data
+        })
     }
   }
 }
+</script>
+
+<template>
+  <div class="container">
+  </div>
+</template>
+
+<style>
+  body {
+      background-image: url("https://wallpaperaccess.com/full/1548134.jpg");
+  }
 </style>
