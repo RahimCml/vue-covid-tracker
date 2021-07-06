@@ -31,7 +31,25 @@ export default {
           this.deaths = data.Global.TotalDeaths
           this.recovered = data.Global.TotalRecovered
         })
+    },
+    getDataByCountry () {
+      var country = this.data.filter(country => {
+        return country.Slug === this.selectedCountry
+      })
+      country = country[0]
+
+      axios.get('https://api.covid19api.com/dayone/country/' + this.selectedCountry)
+        .then(response => {
+          this.countryData = response.data
+          this.confirmed = country.TotalConfirmed
+          this.deaths = country.TotalDeaths
+          this.recovered = country.TotalRecovered
+        })
     }
+  },
+  mounted () {
+    this.getCountries()
+    this.getSummeryData()
   }
 }
 </script>
