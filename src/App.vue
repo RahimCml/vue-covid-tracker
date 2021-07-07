@@ -1,9 +1,16 @@
 <script>
 
 import axios from 'axios'
+import Countries from './components/Countries.vue'
+import Country from './components/Country.vue'
 
 export default {
   name: 'App',
+  components: {
+    Country,
+    Countries
+
+  },
   data () {
     return {
       countries: [],
@@ -55,7 +62,38 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+ <div class="container">
+    <div class="form-group">
+        <select v-model="selectedCountry" class="form-control" v-if="countries" @change="getDataByCountry">
+          <option value="">Global</option>
+          <option v-for="country in countries" :value="country.Slug" :key="country.Slug">{{country.Country}}
+          </option>
+        </select>
+    </div>
+    <div v-if="data">
+      <div class="row justify-content-around">
+        <div class="col-md-4">
+          <div class="stats-item btn-info">
+            <span class="item-title">Sağalma</span>
+            <span class="item-count">{{confirmed | numberFormat}}</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stats-item btn-danger">
+            <span class="item-title">Ölüm halları</span>
+            <span class="item-count">{{deaths | numberFormat}}</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stats-item btn-success">
+            <span class="item-title">Yoluxma</span>
+            <span class="item-count">{{recovered | numberFormat}}</span>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <component :is="tableType" :data="tableData"></component>
+    </div>
   </div>
 </template>
 
