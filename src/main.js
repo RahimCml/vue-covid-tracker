@@ -1,13 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
-import store from './store'
 
 Vue.config.productionTip = false
 
+Vue.filter('numberFormat', number => {
+  return number ? number.toLocaleString() : 0
+})
+
+Vue.filter('dateFormat', date => {
+  const currentDate = new Date(date)
+  return Intl.DateTimeFormat(undefined, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(currentDate)
+})
+
 new Vue({
-  router,
-  store,
   render: h => h(App)
 }).$mount('#app')
