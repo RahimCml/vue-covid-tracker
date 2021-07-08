@@ -22,6 +22,14 @@ export default {
       recovered: null
     }
   },
+  computed: {
+    tableType () {
+      return this.selectedCountry === '' ? 'Countries' : 'Country'
+    },
+    tableData () {
+      return this.selectedCountry !== '' && this.countryData ? this.countryData : this.data
+    }
+  },
   methods: {
     getCountries () {
       return axios.get('https://api.covid19api.com/countries')
